@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+      type="application/javascript"
+    ></script>
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script>
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+        "any"
+      );
+
+      async function connectWallet() {
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+
+        let userAddress = await signer.getAddress();
+        document.getElementById("wallet").innerText =
+          "Wallet connected: " + userAddress + ".\r Enjoy your koi pond.";
+
+        return userAddress;
+      };
+
+      connectWallet();
+    </script>
+    <script src="nishikigoi.js"></script>
+  </head>
+  <body>
+    <div id="wallet"></div>
+    <div id="canvasForHTML"></div>
+    
+  </body>
+</html>
